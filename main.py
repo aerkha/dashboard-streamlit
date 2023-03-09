@@ -11,7 +11,7 @@ st.set_page_config(
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('Marketing_Database.csv')
+    df = pd.read_csv('https://github.com/aerkha/isatb2b/blob/main/Marketing_Database.csv')
     return df
 
 df = get_data()
