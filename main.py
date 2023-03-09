@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 #import plotly_express as px
-#from numerize.numerize import numerize
+from numerize.numerize import numerize
 
 st.set_page_config(
     page_title='Marketing Program Review',
@@ -38,7 +38,9 @@ with st.sidebar:
                                   options=df['New Group'].unique(),
                                   default=df['New Group'].unique()
                                   )
-    
+
+df1 = df.query('campaign == @Campaign_filter & stage == @Stage_filter & group == @Group_filter')
+
 total_oppty = int(df1['SF Opportunity ID'].unique().count())
 total_rev = float(df1['Revenue'].sum())
 total_rev2023 = float(df1['Rev 2023'].sum())
