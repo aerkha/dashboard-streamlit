@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import plotly_express as px
+#import plotly_express as px
 from numerize.numerize import numerize
 
 st.set_page_config(
