@@ -4,7 +4,7 @@ import plotly_express as px
 from numerize.numerize import numerize
 
 st.set_page_config(
-    page_title='Marketing Program Review',
+    page_title='Marketing Dashboard',
     layout='wide',
     initial_sidebar_state='collapsed'
 )
@@ -12,7 +12,7 @@ st.set_page_config(
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('Marketing_Database.csv')
+    df = pd.read_csv('https://o365indosat-my.sharepoint.com/:x:/g/personal/0253220008_ioh_co_id/ERrgSw0fq3ZMncoIDcoZnWMBGb_blrY-eTEcZcgVP_hScg?e=fUIH0Q&nav=MTVfezAwMDAwMDAwLTAwMDEtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMH0')
     return df
 
 
