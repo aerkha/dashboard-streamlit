@@ -12,7 +12,7 @@ st.set_page_config(
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('data/Marketing_Database.csv')
+    df = pd.read_csv('data/Marketing_Database.csv', encoding='windows-1252')
     df ['Created_Date'] = pd.to_datetime(df['Created_Date'])
     return df
 
@@ -102,17 +102,24 @@ with Q2:
 
 Q3, Q4 = st.columns(2)
 
-with Q3:
-    rev_per_month = px.line(df1,x='Created_Date',
-                            y='Rev',
-                            color='Campaign',
-                            title='<b>Monthly Revenue</b>'
-                            )
-    rev_per_month.update_xaxes(rangeslider_visible=True)
-    rev_per_month.update_layout(xaxis_range=['2023-01-01','2023-12-31'],
-                                        showlegend = False,
-                                        title = {'x' : 0.5},
-                                         plot_bgcolor = "rgba(0,0,0,0)",
-                                        xaxis =(dict(showgrid = False)),
-                                        yaxis =(dict(showgrid = False)),)
-    st.plotly_chart(rev_per_month,use_container_width=True)
+#with Q3:
+    #rev_per_month = px.line(df1,x='Created_Date',
+                            #y='Rev',
+                            #color='Campaign',
+                            #title='<b>Monthly Revenue</b>'
+                            #)
+    #rev_per_month.update_xaxes(rangeslider_visible=True)
+    #rev_per_month.update_layout(xaxis_range=['2023-01-01','2023-12-31'],
+                                        #showlegend = False,
+                                        #title = {'x' : 0.5},
+                                         #plot_bgcolor = "rgba(0,0,0,0)",
+                                        #xaxis =(dict(showgrid = False)),
+                                        #yaxis =(dict(showgrid = False)),)
+    #st.plotly_chart(rev_per_month,use_container_width=True)
+
+
+with Q4:
+    df4 = df1.groupby(by='Stage').sum()[['Stage_Count']].reset_index()
+    fig_stage_oppty = px.pie(df4, names='Stage', values='Stage_Count', title='<b>Stage Oppty</b>')
+    fig_stage_oppty.update_layout(title={'x': 0.5}, plot_bgcolor="rgba(0,0,0,0)")
+    st.plotly_chart(fig_stage_oppty, use_container_width=True)
