@@ -6,14 +6,14 @@ from numerize.numerize import numerize
 st.set_page_config(
     page_title='Marketing Program Review',
     layout='wide',
-    initial_sidebar_state='collapsed'
+    initial_sidebar_state='expanded'
 )
 
 
 @st.cache_data
 def get_data():
     df = pd.read_csv('data/Marketing_Database.csv', encoding='windows-1252')
-    df ['Created_Date'] = pd.to_datetime(df['Created_Date'])
+    df ['Created_Date'] = pd.to_datetime(df['Created_Date'], format='%m/%d/%Y')
     return df
 
 
@@ -29,6 +29,7 @@ with header_mid:
 # side filters
 
 with st.sidebar:
+    st.image('Image/IOH.png', use_column_width='auto')
     Campaign_filter = st.multiselect(label='Select Campaign',
                                      options=df['Campaign'].unique(),
                                      default=df['Campaign'].unique()
@@ -53,8 +54,9 @@ total_rev = float(df1['Rev'].sum())
 total_rev2023 = float(df1['Rev_2023'].sum())
 total_accounts = int(df_ca.count())
 total_stage = int(df_stage.count())
+success_rate = float((df_stage.loc ['Cash'] + df_stage.loc ['Closed Won']) / total_stage)
 
-total1, total2, total3, total4 = st.columns(4, gap='large')
+total1, total2, total3, total4, total5 = st.columns(5, gap='large')
 
 with total1:
     st.image('Image/opportunity.png', use_column_width='auto')
@@ -71,6 +73,10 @@ with total3:
 with total4:
     st.image('Image/account.png', use_column_width='auto')
     st.metric(label='Total Customers', value=numerize(total_accounts))
+
+with total5:
+    st.image('Image/win.png', use_column_width='auto')
+    st.metric(label='Success Rate (%)', value=numerize(success_rate))
 
 Q1, Q2 = st.columns(2)
 
@@ -102,20 +108,18 @@ with Q2:
 
 Q3, Q4 = st.columns(2)
 
-#with Q3:
-    #rev_per_month = px.line(df1,x='Created_Date',
-                            #y='Rev',
-                            #color='Campaign',
-                            #title='<b>Monthly Revenue</b>'
-                            #)
-    #rev_per_month.update_xaxes(rangeslider_visible=True)
-    #rev_per_month.update_layout(xaxis_range=['2023-01-01','2023-12-31'],
-                                        #showlegend = False,
-                                        #title = {'x' : 0.5},
-                                         #plot_bgcolor = "rgba(0,0,0,0)",
-                                        #xaxis =(dict(showgrid = False)),
-                                        #yaxis =(dict(showgrid = False)),)
-    #st.plotly_chart(rev_per_month,use_container_width=True)
+with Q3:
+    df5 = df1.groupby(by=df1['Created_Date']).sum()['Rev'].reset_index()
+    df5['Rev'] = round(df5['Rev'], 2)
+    rev_by_campaign = px.bar(df5,
+                             x='Created_Date',
+                             y='Rev',
+                             title='<b>Monthly Rev (OTC MRC)</b>')
+    rev_by_campaign.update_layout(title={'x': 0.5},
+                                  plot_bgcolor="rgba(0,0,0,0)",
+                                  xaxis=(dict(showgrid=False)),
+                                  yaxis=(dict(showgrid=False)))
+    st.plotly_chart(rev_by_campaign, use_container_width=True)
 
 
 with Q4:
