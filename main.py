@@ -54,9 +54,9 @@ total_rev = float(df1['Rev'].sum())
 total_rev2023 = float(df1['Rev_2023'].sum())
 total_accounts = int(df_ca.count())
 total_stage = int(df_stage.count())
-success_rate = float((df_stage.loc ['Cash'] + df_stage.loc ['Closed Won']) / total_stage)
+#success_rate = float((df_stage.loc ['Cash'] + df_stage.loc ['Closed Won']) / total_stage)
 
-total1, total2, total3, total4, total5 = st.columns(5, gap='large')
+total1, total2, total3, total4 = st.columns(4, gap='large')
 
 with total1:
     st.image('Image/opportunity.png', use_column_width='auto')
@@ -74,9 +74,9 @@ with total4:
     st.image('Image/account.png', use_column_width='auto')
     st.metric(label='Total Customers', value=numerize(total_accounts))
 
-with total5:
-    st.image('Image/win.png', use_column_width='auto')
-    st.metric(label='Success Rate (%)', value=numerize(success_rate))
+#with total5:
+    #st.image('Image/win.png', use_column_width='auto')
+    #st.metric(label='Success Rate (%)', value=numerize(success_rate))
 
 Q1, Q2 = st.columns(2)
 
