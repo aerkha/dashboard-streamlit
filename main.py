@@ -54,7 +54,6 @@ total_rev = float(df1['Rev'].sum())
 total_rev2023 = float(df1['Rev_2023'].sum())
 total_accounts = int(df_ca.count())
 total_stage = int(df_stage.count())
-#success_rate = float((df_stage.loc ['Cash'] + df_stage.loc ['Closed Won']) / total_stage)
 
 total1, total2, total3, total4 = st.columns(4, gap='large')
 
@@ -73,10 +72,6 @@ with total3:
 with total4:
     st.image('Image/account.png', use_column_width='auto')
     st.metric(label='Total Customers', value=numerize(total_accounts))
-
-#with total5:
-    #st.image('Image/win.png', use_column_width='auto')
-    #st.metric(label='Success Rate (%)', value=numerize(success_rate))
 
 Q1, Q2 = st.columns(2)
 
@@ -109,12 +104,12 @@ with Q2:
 Q3, Q4 = st.columns(2)
 
 with Q3:
-    df5 = df1.groupby(by=df1['Created_Date']).sum()['Rev'].reset_index()
-    df5['Rev'] = round(df5['Rev'], 2)
+    df5 = df1.groupby(pd.Grouper(key='Created_Date', freq='M')).agg({'Account_Name': 'count'}).reset_index()
+    df5['Account_Name'] = round(df5['Account_Name'], 2)
     rev_by_campaign = px.bar(df5,
                              x='Created_Date',
-                             y='Rev',
-                             title='<b>Monthly Rev (OTC MRC)</b>')
+                             y='Account_Name',
+                             title='<b>Monthly Custumer Acquisition</b>')
     rev_by_campaign.update_layout(title={'x': 0.5},
                                   plot_bgcolor="rgba(0,0,0,0)",
                                   xaxis=(dict(showgrid=False)),
