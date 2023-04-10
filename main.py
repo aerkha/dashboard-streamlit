@@ -12,7 +12,7 @@ st.set_page_config(
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('data/Marketing_Database.csv', encoding='windows-1252')
+    df = pd.read_csv('Marketing_Database.csv', encoding='windows-1252')
     df ['Created_Date'] = pd.to_datetime(df['Created_Date'], format='%m/%d/%Y')
     return df
 
