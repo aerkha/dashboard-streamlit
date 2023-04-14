@@ -12,7 +12,7 @@ st.set_page_config(
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('Marketing_Database.csv', encoding='windows-1252')
+    df = pd.read_csv('data/Marketing_Database.csv', encoding='windows-1252')
     df ['Created_Date'] = pd.to_datetime(df['Created_Date'], format='%m/%d/%Y')
     return df
 
@@ -109,7 +109,7 @@ with Q3:
     rev_by_campaign = px.bar(df5,
                              x='Created_Date',
                              y='Account_Name',
-                             title='<b>Monthly Custumer Acquisition</b>')
+                             title='<b>Customer Acquisition (M+1)</b>')
     rev_by_campaign.update_layout(title={'x': 0.5},
                                   plot_bgcolor="rgba(0,0,0,0)",
                                   xaxis=(dict(showgrid=False)),
