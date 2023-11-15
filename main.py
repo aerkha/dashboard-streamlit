@@ -29,7 +29,7 @@ with header_mid:
 # side filters
 
 with st.sidebar:
-    st.image('Image/IOH.png', use_column_width='auto')
+    st.image('logo.png', use_column_width='auto') //ganti dengan logo perusahaan
     Campaign_filter = st.multiselect(label='Select Campaign',
                                      options=df['Campaign'].unique(),
                                      default=df['Campaign'].unique()
