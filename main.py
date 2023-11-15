@@ -4,7 +4,7 @@ import plotly_express as px
 from numerize.numerize import numerize
 
 st.set_page_config(
-    page_title='Marketing Program Review',
+    page_title='JUDUL DASHBOARD',
     layout='wide',
     initial_sidebar_state='expanded'
 )
@@ -12,7 +12,7 @@ st.set_page_config(
 
 @st.cache_data
 def get_data():
-    df = pd.read_csv('data/Marketing_Database.csv', encoding='windows-1252')
+    df = pd.read_csv('data_source.csv', encoding='windows-1252') // ganti lokasi sumber file
     df ['Created_Date'] = pd.to_datetime(df['Created_Date'], format='%m/%d/%Y')
     return df
 
@@ -24,7 +24,7 @@ header_left, header_mid, header_right = st.columns([1, 2, 1], gap='large')
 # dashboard title
 
 with header_mid:
-    st.title("CMM Dashboard")
+    st.title("Sales Dashboard")
 
 # side filters
 
